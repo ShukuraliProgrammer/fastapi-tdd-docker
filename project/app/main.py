@@ -3,8 +3,7 @@ from fastapi import FastAPI
 import logging
 from app.api.v1 import ping
 from app.db import init_db
-from app.log import log
-
+from app.api.v1 import summaries  # new
 
 log = logging.getLogger("uvicorn")
 
@@ -13,6 +12,7 @@ def create_application() -> FastAPI:
     application = FastAPI()
 
     application.include_router(ping.router)
+    application.include_router(summaries.router, prefix="/summaries", tags=["summaries"])  # new
 
     return application
 
